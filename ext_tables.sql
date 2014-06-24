@@ -6,6 +6,8 @@ CREATE TABLE tx_evchat_domain_model_conversation (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
+	conversation_key varchar(255) DEFAULT '' NOT NULL,
+
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -43,11 +45,11 @@ CREATE TABLE tx_evchat_domain_model_message (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-	body varchar(255) DEFAULT '' NOT NULL,
+	body text NOT NULL,
 	time int(11) DEFAULT '0' NOT NULL,
+	administrator int(11) DEFAULT '0' NOT NULL,
 	conversation int(11) unsigned DEFAULT '0',
 	visitor int(11) unsigned DEFAULT '0',
-	administrator int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -116,12 +118,15 @@ CREATE TABLE tx_evchat_domain_model_visitor (
 );
 
 #
-# Table structure for table 'tx_evchat_domain_model_administrator'
+# Table structure for table 'tx_evchat_domain_model_event'
 #
-CREATE TABLE tx_evchat_domain_model_administrator (
+CREATE TABLE tx_evchat_domain_model_event (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
+
+	object varchar(255) DEFAULT '' NOT NULL,
+	event text NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -151,3 +156,5 @@ CREATE TABLE tx_evchat_domain_model_administrator (
  KEY language (l10n_parent,sys_language_uid)
 
 );
+
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

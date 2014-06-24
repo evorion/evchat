@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    390,
-                    89
+                    278,
+                    15
                 ]
             },
             "name": "New Model Object",
@@ -16,7 +16,7 @@
                     "_default3_edit_update": true,
                     "_default4_delete": true,
                     "customActions": [
-
+                        "poll"
                     ]
                 },
                 "name": "Conversation",
@@ -35,7 +35,16 @@
                 },
                 "propertyGroup": {
                     "properties": [
-
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "conversationKey",
+                            "propertyType": "String",
+                            "uid": "465048200026"
+                        }
                     ]
                 },
                 "relationGroup": {
@@ -48,16 +57,16 @@
         {
             "config": {
                 "position": [
-                    420,
-                    423
+                    132,
+                    402
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
+                    "_default0_list": true,
                     "_default1_show": false,
-                    "_default2_new_create": false,
+                    "_default2_new_create": true,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
                     "customActions": [
@@ -69,7 +78,7 @@
                     "addDeletedField": true,
                     "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
+                    "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
                     "mapToTable": "",
@@ -87,7 +96,7 @@
                             "propertyIsExcludeField": true,
                             "propertyIsRequired": false,
                             "propertyName": "body",
-                            "propertyType": "String",
+                            "propertyType": "Text",
                             "uid": "1029413960524"
                         },
                         {
@@ -99,6 +108,16 @@
                             "propertyName": "time",
                             "propertyType": "DateTime",
                             "uid": "300805990786"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "administrator",
+                            "propertyType": "Integer",
+                            "uid": "1176594355039"
                         }
                     ]
                 },
@@ -123,16 +142,6 @@
                             "relationType": "zeroToOne",
                             "relationWire": "[wired]",
                             "uid": "62802709028"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "Administrator that sent the message, if it was an administrator.",
-                            "relationName": "administrator",
-                            "relationType": "zeroToOne",
-                            "relationWire": "[wired]",
-                            "uid": "732549987477"
                         }
                     ]
                 }
@@ -148,7 +157,7 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
+                    "_default0_list": true,
                     "_default1_show": false,
                     "_default2_new_create": false,
                     "_default3_edit_update": false,
@@ -162,7 +171,7 @@
                     "addDeletedField": true,
                     "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
+                    "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
                     "mapToTable": "",
@@ -186,39 +195,58 @@
         {
             "config": {
                 "position": [
-                    658,
-                    218
+                    687,
+                    185
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
+                    "_default0_list": true,
                     "_default1_show": false,
-                    "_default2_new_create": false,
+                    "_default2_new_create": true,
                     "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default4_delete": true,
                     "customActions": [
 
                     ]
                 },
-                "name": "Administrator",
+                "name": "Event",
                 "objectsettings": {
                     "addDeletedField": true,
                     "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
+                    "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
                     "sorting": false,
                     "type": "Entity",
-                    "uid": "33530374444"
+                    "uid": "15649447368"
                 },
                 "propertyGroup": {
                     "properties": [
-
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "object",
+                            "propertyType": "String",
+                            "uid": "872954633168"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "event",
+                            "propertyType": "String",
+                            "uid": "571388664667"
+                        }
                     ]
                 },
                 "relationGroup": {
@@ -238,8 +266,8 @@
                 "description": "Visitor support chat - administrative interface",
                 "key": "evchatbe",
                 "mainModule": "tools",
-                "name": "Visitor chat BE",
-                "tabLabel": ""
+                "name": "Visitor chat",
+                "tabLabel": "Visitor chat"
             }
         ],
         "description": "Support your visitors\/customers with a live AJAX chat!",
@@ -251,7 +279,7 @@
             "disableVersioning": false,
             "sourceLanguage": "en",
             "state": "alpha",
-            "targetVersion": "6.1",
+            "targetVersion": "6.2",
             "version": ""
         },
         "extensionKey": "evchat",
@@ -268,12 +296,12 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "",
-                    "noncacheableActions": "",
+                    "controllerActionCombinations": "Conversation=>show,list,new,create,edit,update,delete\nMessage=>create,list\n",
+                    "noncacheableActions": "Conversation=>create,update,delete\n",
                     "switchableActions": ""
                 },
                 "key": "evchatfe",
-                "name": "Visitor chat FE"
+                "name": "Visitor chat"
             }
         ],
         "vendorName": "Evorion"
@@ -302,22 +330,10 @@
                 "terminal": "SOURCES",
                 "uid": "1304691457012"
             }
-        },
-        {
-            "src": {
-                "moduleId": 1,
-                "terminal": "relationWire_2",
-                "uid": "732549987477"
-            },
-            "tgt": {
-                "moduleId": 3,
-                "terminal": "SOURCES",
-                "uid": "33530374444"
-            }
         }
     ],
     "log": {
-        "last_modified": "2014-05-14 06:01",
+        "last_modified": "2014-06-17 01:44",
         "extension_builder_version": "6.2.0",
         "be_user": "Vlatko \u0160urlan (1)"
     }

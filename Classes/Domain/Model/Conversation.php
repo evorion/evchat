@@ -1,9 +1,7 @@
 <?php
 namespace Evorion\Evchat\Domain\Model;
 
-
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
@@ -29,8 +27,62 @@ namespace Evorion\Evchat\Domain\Model;
 
 /**
  * Conversation
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Conversation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-	
+	/**
+	 * The messagess of this conversation
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Evorion\Evchat\Domain\Model\Message>
+	 * @lazy
+	 * @cascade remove
+	 */
+	protected $messages = NULL;
+
+	/**
+	 * conversationKey
+	 *
+	 * @var string
+	 */
+	protected $conversationKey = '';
+
+	/**
+	 * Constructs a new Conversation
+	 */
+	public function __construct() {
+		$this->messages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Adds a post to this blog
+	 *
+	 * @param \Evorion\Evchat\Domain\Model\Message $message
+	 * @return void
+	 */
+	public function addMessage(\Evorion\Evchat\Domain\Model\Message $message) {
+		$this->messages->attach($message);
+	}
+
+	/**
+	 * Returns the conversationKey
+	 *
+	 * @return string $conversationKey
+	 */
+	public function getConversationKey() {
+		return $this->conversationKey;
+	}
+
+	/**
+	 * Sets the conversationKey
+	 *
+	 * @param string $conversationKey
+	 * @return void
+	 */
+	public function setConversationKey($conversationKey) {
+		$this->conversationKey = $conversationKey;
+	}
+
 }

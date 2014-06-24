@@ -51,7 +51,23 @@ class ConversationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function dummyTestToNotLeaveThisFileEmpty() {
-		$this->markTestIncomplete();
+	public function getConversationKeyReturnsInitialValueForString() {
+		$this->assertSame(
+			'',
+			$this->subject->getConversationKey()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setConversationKeyForStringSetsConversationKey() {
+		$this->subject->setConversationKey('Conceived at T3CON10');
+
+		$this->assertAttributeEquals(
+			'Conceived at T3CON10',
+			'conversationKey',
+			$this->subject
+		);
 	}
 }

@@ -1,4 +1,3 @@
-
 plugin.tx_evchat {
 	view {
 		templateRootPath = {$plugin.tx_evchat.view.templateRootPath}
@@ -14,41 +13,7 @@ plugin.tx_evchat {
 	}
 }
 
-plugin.tx_evchat._CSS_DEFAULT_STYLE (
-	textarea.f3-form-error {
-		background-color:#FF9F9F;
-		border: 1px #FF0000 solid;
-	}
-
-	input.f3-form-error {
-		background-color:#FF9F9F;
-		border: 1px #FF0000 solid;
-	}
-
-	.tx-evchat table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-evchat table th {
-		font-weight:bold;
-	}
-
-	.tx-evchat table td {
-		vertical-align:top;
-	}
-
-	.typo3-messages .message-error {
-		color:red;
-	}
-
-	.typo3-messages .message-ok {
-		color:green;
-	}
-
-)
-
- # Module configuration
+# Module configuration
 module.tx_evchat {
 	persistence {
 		storagePid = {$module.tx_evchat.persistence.storagePid}
@@ -58,4 +23,64 @@ module.tx_evchat {
 		partialRootPath = {$module.tx_evchat.view.partialRootPath}
 		layoutRootPath = {$module.tx_evchat.view.layoutRootPath}
 	}
+}
+
+page.includeCSS.evchat			= EXT:evchat/Resources/Public/Css/evChat.css
+page.includeJSFooter.autogrow	= EXT:evchat/Resources/Public/Js/autogrow/autogrow.js
+page.includeJSFooter.evChat		= EXT:evchat/Resources/Public/Js/evChat.js
+
+# Message controller
+ajaxJSON = PAGE
+ajaxJSON {
+	typeNum = 5121981
+	config {
+		disableAllHeaderCode = 1
+		no_cache = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+		additionalHeaders (
+			Content-Type: application/json; charset=utf-8
+		)
+	}
+
+	10 = USER_INT
+	10 { 
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		vendorName = Evorion
+		extensionName = Evchat
+		pluginName = Evchatfe
+		# controller = Message - not implemented in extbase, goo.gl/c4CYHZ
+		# action = list - not implemented in extbase, goo.gl/c4CYHZ
+		switchableControllerActions {
+			Event {
+				1 = list
+			}
+			Message {
+				1 = create
+			}
+			Conversation {
+				1 = list
+				2 = show
+			}
+		}
+        settings =< plugin.tx_evchat.settings
+        persistence =< plugin.tx_evchat.persistence
+        view =< plugin.tx_evchat.view
+	}
+}
+
+ajaxHTML = PAGE
+ajaxHTML {
+        typeNum = 561978
+        config {
+                disableAllHeaderCode = 1
+                no_cache = 1
+                xhtml_cleaning = 0
+                admPanel = 0
+                debug = 0
+        }
+
+        10 = USER_INT
+        10 < ajaxJSON.10
 }

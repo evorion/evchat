@@ -1,9 +1,7 @@
 <?php
 namespace Evorion\Evchat\Controller;
 
-
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
@@ -28,9 +26,18 @@ namespace Evorion\Evchat\Controller;
  ***************************************************************/
 
 /**
- * ConversationController
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+	/**
+	 * eventRepository
+	 *
+	 * @var \Evorion\Evchat\Domain\Repository\EventRepository
+	 * @inject
+	 */
+	protected $eventRepository = NULL;
 
 	/**
 	 * conversationRepository
@@ -39,6 +46,28 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @inject
 	 */
 	protected $conversationRepository = NULL;
+	
+	/**
+	 * visitorRepository
+	 *
+	 * @var \Evorion\Evchat\Domain\Repository\VisitorRepository
+	 * @inject
+	 */
+	protected $visitorRepository = NULL;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager = NULL;
+
+	/**
+	 * Session Service provides access to user's PHP session
+	 *
+	 * @var \Evorion\Evchat\Domain\Service\SessionService
+	 * @inject
+	 */
+	protected $sessionService = NULL;
 
 	/**
 	 * action list
@@ -57,14 +86,54 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function showAction(\Evorion\Evchat\Domain\Model\Conversation $conversation = NULL) {
+
+		// Get the conversationKey either from an argument or the session
+		if ($this->request->hasArgument('conversationKey'))
+			$conversationKey = $this->request->getArgument('conversationKey');
+		else
+			$conversationKey = $this->sessionService->get('conversationKey');
+
+		if ($conversation === NULL && $conversationKey)
+			$conversation = $this->conversationRepository->findByConversationKey($conversationKey)->getFirst();
+		else if ($conversation === NULL) {
+			// There is no conversation so we create a new one
+			$conversationKey = uniqid('', TRUE);
+			$this->sessionService->set('conversationKey', $conversationKey);
+			$conversation = $this->objectManager->get('Evorion\\Evchat\\Domain\\Model\\Conversation');
+			$conversation->setConversationKey($conversationKey);
+			$result = $this->conversationRepository->add($conversation);
+			
+			// Since we created a conversation there must be a Visitor that started it
+			$visitor = $this->objectManager->get('Evorion\\Evchat\\Domain\\Model\\Visitor');
+			$this->visitorRepository->add($visitor);
+			
+			// We need to persist here so we can get the database ID of the Visitor
+			$persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+			$persistenceManager->persistAll();
+
+			// Save the uid of the visitor to the session
+			$this->sessionService->set('Visitor', $visitor->getUid());
+
+			// Create an Event which will trigger pollers
+			$event = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Evorion\\Evchat\\Domain\\Model\\Event');
+			$event->setObject('Conversation');
+			$event->setEvent(
+					json_encode(array(
+						'conversationKey' => $conversationKey,
+					))
+			);
+			$this->eventRepository->add($event);
+		}
+
 		$this->view->assign('conversation', $conversation);
+
 	}
 
 	/**
 	 * action new
 	 *
 	 * @param \Evorion\Evchat\Domain\Model\Conversation $newConversation
-	 * @ignorevalidation $newConversation
+	 * @dontvalidate $newConversation
 	 * @return void
 	 */
 	public function newAction(\Evorion\Evchat\Domain\Model\Conversation $newConversation = NULL) {
@@ -78,8 +147,8 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function createAction(\Evorion\Evchat\Domain\Model\Conversation $newConversation) {
-		$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See <a href="http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain" target="_blank">Wiki</a>', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		$this->conversationRepository->add($newConversation);
+		$this->flashMessageContainer->add('Your new Conversation was created.');
 		$this->redirect('list');
 	}
 
@@ -87,7 +156,6 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * action edit
 	 *
 	 * @param \Evorion\Evchat\Domain\Model\Conversation $conversation
-	 * @ignorevalidation $conversation
 	 * @return void
 	 */
 	public function editAction(\Evorion\Evchat\Domain\Model\Conversation $conversation) {
@@ -101,8 +169,8 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function updateAction(\Evorion\Evchat\Domain\Model\Conversation $conversation) {
-		$this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See <a href="http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain" target="_blank">Wiki</a>', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		$this->conversationRepository->update($conversation);
+		$this->flashMessageContainer->add('Your Conversation was updated.');
 		$this->redirect('list');
 	}
 
@@ -113,9 +181,18 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function deleteAction(\Evorion\Evchat\Domain\Model\Conversation $conversation) {
-		$this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See <a href="http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain" target="_blank">Wiki</a>', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		$this->conversationRepository->remove($conversation);
+		$this->flashMessageContainer->add('Your Conversation was removed.');
 		$this->redirect('list');
+	}
+
+	/**
+	 * action poll
+	 *
+	 * @return void
+	 */
+	public function pollAction() {
+		
 	}
 
 }

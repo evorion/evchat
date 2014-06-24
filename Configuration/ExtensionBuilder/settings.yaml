@@ -46,12 +46,16 @@ overwriteSettings:
 
   Configuration:
     TCA: merge
-    TypoScript: keep
+    TypoScript:
+      constants.txt: keep
+      setup.txt: keep
 
   Resources:
     Private:
+      Backend: keep
       Language: merge
       Templates: keep
+      Partials: merge
 
   ext_icon.gif: keep
 

@@ -1,0 +1,3 @@
+<f:for each="{messages}" as="message">
+	<p class="messageBody" data-tracker="{message.uid}" data-conversationkey="{message.conversation.conversationKey}">{message.body}<span class="messageTime">{message.time -> f:format.date()}</span></p>
+</f:for>

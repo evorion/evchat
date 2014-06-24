@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-14T18:01:16Z" product-name="evchat">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-06-17T13:44:03Z" product-name="evchat">
 		<header/>
 		<body>
 			<trans-unit id="body.description">
@@ -9,14 +9,14 @@
 			<trans-unit id="time.description">
 				<source>time</source>
 			</trans-unit>
+			<trans-unit id="administrator.description">
+				<source>Administrator that sent the message, if it was an administrator.</source>
+			</trans-unit>
 			<trans-unit id="conversation.description">
 				<source>Parent conversation</source>
 			</trans-unit>
 			<trans-unit id="visitor.description">
 				<source>Visitor that sent the message, if it was a visitor.</source>
-			</trans-unit>
-			<trans-unit id="administrator.description">
-				<source>Administrator that sent the message, if it was an administrator.</source>
 			</trans-unit>
 		</body>
 	</file>

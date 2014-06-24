@@ -98,6 +98,29 @@ class MessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function getAdministratorReturnsInitialValueForInteger() {
+		$this->assertSame(
+			0,
+			$this->subject->getAdministrator()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setAdministratorForIntegerSetsAdministrator() {
+		$this->subject->setAdministrator(12);
+
+		$this->assertAttributeEquals(
+			12,
+			'administrator',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getConversationReturnsInitialValueForConversation() {
 		$this->assertEquals(
 			NULL,
@@ -139,30 +162,6 @@ class MessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertAttributeEquals(
 			$visitorFixture,
 			'visitor',
-			$this->subject
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getAdministratorReturnsInitialValueForAdministrator() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getAdministrator()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setAdministratorForAdministratorSetsAdministrator() {
-		$administratorFixture = new \Evorion\Evchat\Domain\Model\Administrator();
-		$this->subject->setAdministrator($administratorFixture);
-
-		$this->assertAttributeEquals(
-			$administratorFixture,
-			'administrator',
 			$this->subject
 		);
 	}

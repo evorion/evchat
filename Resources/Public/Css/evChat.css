@@ -1,0 +1,109 @@
+.tx-evchat {
+	font-family: Verdana, Helvetica, sans-serif;
+	position: fixed;
+	bottom: 4px;
+	right: 100px;
+	-webkit-box-shadow: 0px 0px 10px 2px rgba(11,11,20,0.71);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(11,11,20,0.71);
+	box-shadow: 0px 0px 10px 2px rgba(11,11,20,0.71);
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border: 2px solid #447596;
+	text-align: center;
+	color: #444;
+	background-color: #edeff4;
+	z-index: 9999;
+}
+
+.tx-evchat-titleBar  {
+	position: relataive;
+	border-bottom: 0;
+	background-color: #447596;
+	color: white;
+	font-weight: bold;
+	padding: 0 16px 2px 16px;
+	margin: 0;
+}
+.tx-evchat-titleBar h3 {
+	line-height: 26px;
+	font-family: Verdana, Helvetica, sans-serif;
+	margin: 0 28px;	
+	padding-top: 4px;
+	color: white;
+	font-size: 19px;
+}
+.tx-evchat-titleBar-chatIcon {
+	position: absolute;
+	top: 4px;
+	left: 5px;
+}
+.tx-evchat-titleBar-toggleIcon {
+	position: absolute;
+	top: 4px;
+	right: 5px;
+}
+
+.tx-evchat-window {
+	display: none;
+	padding: 4px;
+}
+.tx-evchat-conversation {
+	min-height: 150px;
+	max-height: 500px;
+	width: 330px;
+	text-align: left;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.tx-evchat-conversation p {
+	font-size: medium;
+}
+.tx-evchat-showConversationLink {
+	display: block;
+}
+
+.tx-evchat-body {
+	padding: 2px;
+	font-family: monospace;
+	font-size: 12px;
+	line-height: normal;
+	color: black;
+	width: 326px;
+	height: 14px;
+	margin: 0;
+	resize: none;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.tx-evchat-minimizeIcon {
+	position: absolute;
+	right: -30px;
+}
+
+.tx-evchat form[name=newMessage] {
+	margin: 0 !important;
+}
+
+.tx-evchat-messageByAdministrator {
+	background-color: #dbedfe;
+	border: 1px solid #ddd;
+	margin-left: 50px;
+	text-align: right;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 4px;
+}
+.tx-evchat-messageByVisitor {
+	background-color: white;
+	border: 1px solid #ddd;
+	margin-right: 50px;
+	text-align: left;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 4px;
+}

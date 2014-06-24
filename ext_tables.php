@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	$_EXTKEY,
 	'Evchatfe',
-	'Visitor chat FE'
+	'Visitor chat'
 );
 
 if (TYPO3_MODE === 'BE') {
@@ -20,7 +20,7 @@ if (TYPO3_MODE === 'BE') {
 		'evchatbe',	// Submodule key
 		'',						// Position
 		array(
-			'Conversation' => 'list, show, new, create, edit, update, delete',
+			'Conversation' => 'list, show, new, create, edit, update, delete, poll','Message' => 'list, new, create','Visitor' => 'list','Event' => 'list, new, create, delete',
 		),
 		array(
 			'access' => 'user,group',
@@ -38,7 +38,7 @@ if (TYPO3_MODE === 'BE') {
 $GLOBALS['TCA']['tx_evchat_domain_model_conversation'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_conversation',
-		'label' => 'uid',
+		'label' => 'conversation_key',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -56,7 +56,7 @@ $GLOBALS['TCA']['tx_evchat_domain_model_conversation'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => '',
+		'searchFields' => 'conversation_key,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Conversation.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evchat_domain_model_conversation.gif'
 	),
@@ -85,7 +85,7 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'body,time,conversation,visitor,administrator,',
+		'searchFields' => 'body,time,administrator,conversation,visitor,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Message.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evchat_domain_model_message.gif'
 	),
@@ -120,12 +120,12 @@ $GLOBALS['TCA']['tx_evchat_domain_model_visitor'] = array(
 	),
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_evchat_domain_model_administrator', 'EXT:evchat/Resources/Private/Language/locallang_csh_tx_evchat_domain_model_administrator.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evchat_domain_model_administrator');
-$GLOBALS['TCA']['tx_evchat_domain_model_administrator'] = array(
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_evchat_domain_model_event', 'EXT:evchat/Resources/Private/Language/locallang_csh_tx_evchat_domain_model_event.xlf');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evchat_domain_model_event');
+$GLOBALS['TCA']['tx_evchat_domain_model_event'] = array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_administrator',
-		'label' => 'uid',
+		'title'	=> 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_event',
+		'label' => 'object',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -143,8 +143,9 @@ $GLOBALS['TCA']['tx_evchat_domain_model_administrator'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => '',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Administrator.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evchat_domain_model_administrator.gif'
+		'searchFields' => 'object,event,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Event.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evchat_domain_model_event.gif'
 	),
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

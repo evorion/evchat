@@ -1,9 +1,7 @@
 <?php
 namespace Evorion\Evchat\Domain\Model;
 
-
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
@@ -29,6 +27,9 @@ namespace Evorion\Evchat\Domain\Model;
 
 /**
  * Visitor
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Visitor extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 

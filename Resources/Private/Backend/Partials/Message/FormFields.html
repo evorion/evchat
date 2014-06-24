@@ -1,0 +1,13 @@
+
+<label for="body">
+	<f:translate key="tx_evchat_domain_model_message.body" />
+</label><br />
+	<f:form.textarea property="body" cols="40" rows="15" /><br />
+<label for="time">
+	<f:translate key="tx_evchat_domain_model_message.time" />
+</label><br />
+	<f:form.textfield property="time"  value="{message.time->f:format.date()}" /><br />
+<label for="administrator">
+	<f:translate key="tx_evchat_domain_model_message.administrator" />
+</label><br />
+	<f:form.textfield property="administrator" /><br />

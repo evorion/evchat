@@ -1,9 +1,7 @@
 <?php
 namespace Evorion\Evchat\Domain\Model;
 
-
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
@@ -29,6 +27,9 @@ namespace Evorion\Evchat\Domain\Model;
 
 /**
  * Message
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
@@ -61,16 +62,16 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $visitor = NULL;
 
 	/**
-	 * Administrator that sent the message, if it was an administrator.
+	 * administrator
 	 *
-	 * @var \Evorion\Evchat\Domain\Model\Administrator
+	 * @var integer
 	 */
-	protected $administrator = NULL;
+	protected $administrator = 0;
 
 	/**
 	 * Returns the body
 	 *
-	 * @return string $body
+	 * @return \string $body
 	 */
 	public function getBody() {
 		return $this->body;
@@ -79,7 +80,7 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the body
 	 *
-	 * @param string $body
+	 * @param \string $body
 	 * @return void
 	 */
 	public function setBody($body) {
@@ -101,7 +102,7 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \DateTime $time
 	 * @return void
 	 */
-	public function setTime(\DateTime $time) {
+	public function setTime($time) {
 		$this->time = $time;
 	}
 
@@ -146,7 +147,7 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the administrator
 	 *
-	 * @return \Evorion\Evchat\Domain\Model\Administrator $administrator
+	 * @return integer $administrator
 	 */
 	public function getAdministrator() {
 		return $this->administrator;
@@ -155,10 +156,10 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the administrator
 	 *
-	 * @param \Evorion\Evchat\Domain\Model\Administrator $administrator
+	 * @param integer $administrator
 	 * @return void
 	 */
-	public function setAdministrator(\Evorion\Evchat\Domain\Model\Administrator $administrator) {
+	public function setAdministrator($administrator) {
 		$this->administrator = $administrator;
 	}
 

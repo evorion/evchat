@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 	'ctrl' => $GLOBALS['TCA']['tx_evchat_domain_model_message']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, body, time, conversation, visitor, administrator',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, body, time, administrator, conversation, visitor',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, body, time, conversation, visitor, administrator, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, body, time, administrator, conversation, visitor, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -101,10 +101,11 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_message.body',
 			'config' => array(
-				'type' => 'input',
-				'size' => 30,
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
 				'eval' => 'trim'
-			),
+			)
 		),
 		'time' => array(
 			'exclude' => 1,
@@ -116,6 +117,15 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				'checkbox' => 1,
 				'default' => time()
 			),
+		),
+		'administrator' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_message.administrator',
+			'config' => array(
+				'type' => 'input',
+				'size' => 4,
+				'eval' => 'int'
+			)
 		),
 		'conversation' => array(
 			'exclude' => 1,
@@ -144,23 +154,7 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				),
 			),
 		),
-		'administrator' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_message.administrator',
-			'config' => array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_evchat_domain_model_administrator',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
-			),
-		),
 		
 	),
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
