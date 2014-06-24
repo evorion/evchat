@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-14T18:01:16Z" product-name="evchat">
+		<header/>
+		<body>
+			<trans-unit id="mlang_tabs_tab">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="mlang_labels_tabdescr">
+				<source>Visitor support chat - administrative interface</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

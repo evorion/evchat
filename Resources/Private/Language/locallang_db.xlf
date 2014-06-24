@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-14T18:01:16Z" product-name="evchat">
+		<header/>
+		<body>
+			<trans-unit id="tx_evchat_domain_model_conversation">
+				<source>Conversation</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_message">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_message.body">
+				<source>Body</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_message.time">
+				<source>Time</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_message.conversation">
+				<source>Conversation</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_message.visitor">
+				<source>Visitor</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_message.administrator">
+				<source>Administrator</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_visitor">
+				<source>Visitor</source>
+			</trans-unit>
+			<trans-unit id="tx_evchat_domain_model_administrator">
+				<source>Administrator</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
