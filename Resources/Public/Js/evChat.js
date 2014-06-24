@@ -64,28 +64,24 @@ $(document).ready(function($) {
 				for (var updateKey in objectUpdates[objectKey]) {
 					var update = JSON.parse(objectUpdates[objectKey][updateKey]);
 					var messageClass = update.admin === null ? 'tx-evchat-messageByVisitor' : 'tx-evchat-messageByAdministrator'; 
-					$('<p class="' + messageClass + '">' + update.body + '</p>').appendTo($('.tx-evchat-conversation', chat));
+					var lastMessage = $('<p class="' + messageClass + '">' + update.body + '</p>').appendTo($('.tx-evchat-conversation', chat));
+					if (lastMessage.prev().hasClass('tx-evchat-messageByVisitor') 
+						&& lastMessage.hasClass('tx-evchat-messageByVisitor') 
+						|| lastMessage.prev().hasClass('tx-evchat-messageByAdministrator') 
+						&& lastMessage.hasClass('tx-evchat-messageByAdministrator')) {
+
+						lastMessage.prepend(lastMessage.prev().html() + '<br />'); lastMessage.prev().remove();
+					} 
 				}
+				
 				UITrackers[objectKey] = parseInt(updateKey);
 				$('.tx-evchat-conversation', chat).scrollTop(99999999);
-				mergeNeighbours($('.tx-evchat-conversation', chat));
+				
+
 				break;
 			}
 		}
 
-	}
-
-	function mergeNeighbours(conversation) {
-		var previous = null;
-		conversation.find('p').each(function () {
-			if (previous === null) { previous = $(this); return; }
-			if (previous.hasClass('tx-evchat-messageByVisitor') && $(this).hasClass('tx-evchat-messageByVisitor') ||
-				previous.hasClass('tx-evchat-messageByAdministrator') && $(this).hasClass('tx-evchat-messageByAdministrator')) {
-				$(this).prepend(previous.html(), '<br>');
-				previous.remove();
-				previous = $(this);
-			} else previous = $(this);
-		});
 	}
 
 	(function($) {
@@ -108,14 +104,16 @@ $(document).ready(function($) {
 					// Enter with a shift key just adds a new line to the body
 					var form = $('form[name=newMessage]', chat);
 					if (e.keyCode == 13 && !e.shiftKey) {
+						// Clear content and reset height back to one line
+						var data = form.serialize();
+						body.val('').height(body.data('initialHeight'));
 						$.ajax({
 							type		: 'POST',
-							url			: '/' + form.attr('action') + '&type=5121981',
-							data		: form.serialize(),
+							url			: '/' + form.attr('action'),
+							data		: data,
 							success		: 
 								function () {
-									// Clear content and reset height back to one line
-									body.val('').height(body.data('initialHeight'));
+								
 									// NOTE: New messages are added to the conversation via the poll mechanism
 								},
 							error		:
