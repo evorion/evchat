@@ -1,5 +1,5 @@
 <?php
-namespace Evorion\Evchat\Tests\Unit\Controller;
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -25,40 +25,37 @@ namespace Evorion\Evchat\Tests\Unit\Controller;
  ***************************************************************/
 
 /**
- * Test case for class Evorion\Evchat\Controller\VisitorController.
+ * Test case for class Tx_Evchat_Controller_VisitorController.
+ *
+ * @version $Id$
+ * @copyright Copyright belongs to the respective authors
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ * @package TYPO3
+ * @subpackage Visitor chat
  *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class VisitorControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-
+class VisitorControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Evorion\Evchat\Controller\VisitorController
+	 * @var 
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = $this->getMock('Evorion\\Evchat\\Controller\\VisitorController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Visitor();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function listActionFetchesAllVisitorsFromRepositoryAndAssignsThemToView() {
-
-		$allVisitors = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array(), array(), '', FALSE);
-
-		$visitorRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\VisitorRepository', array('findAll'), array(), '', FALSE);
-		$visitorRepository->expects($this->once())->method('findAll')->will($this->returnValue($allVisitors));
-		$this->inject($this->subject, 'visitorRepository', $visitorRepository);
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('visitors', $allVisitors);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->listAction();
+	public function dummyMethod() {
+		$this->markTestIncomplete();
 	}
+
 }
+?>

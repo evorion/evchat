@@ -2,11 +2,10 @@
 namespace Evorion\Evchat\Domain\Repository;
 
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,48 +26,13 @@ namespace Evorion\Evchat\Domain\Repository;
  ***************************************************************/
 
 /**
- * The repository for Events
+ *
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
 class EventRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-	/**
-	 * DBTracker service
-	 *
-	 * @var \Evorion\Evchat\Domain\Service\DBTrackerService
-	 * @inject
-	 */
-	protected $dbTracker = NULL;
-
-	/**
-	 * Adds an object to this repository
-	 *
-	 * @param object $object The object to add
-	 * @throws Exception\IllegalObjectTypeException
-	 * @api
-	 * @return void
-	 */
-	public function add($object) {
-		parent::add($object);
-		// We need to persist here so we can get the database ID of the new Event
-		$persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-		$persistenceManager->persistAll();
-		$this->dbTracker->set($object->getObject(), $object->getUid());
-	}
-
-	/**
-	 * @param $trackers
-	 */
-	public function findByTracker($trackers) {
-		$query = $this->createQuery();
-		foreach ($trackers as $path => $tracker) {
-			$query->matching(
-				$query->logicalAnd(
-					$query->equals('object', $path),
-					$query->greaterThan('uid', $tracker)
-				)
-			);
-		}
-		return $query->execute();
-	}
-
 }
+?>

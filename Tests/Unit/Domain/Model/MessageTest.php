@@ -1,12 +1,11 @@
 <?php
 
-namespace Evorion\Evchat\Tests\Unit\Domain\Model;
-
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,140 +28,97 @@ namespace Evorion\Evchat\Tests\Unit\Domain\Model;
 /**
  * Test case for class \Evorion\Evchat\Domain\Model\Message.
  *
+ * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
+ * @package TYPO3
+ * @subpackage Visitor chat
+ *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class MessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class MessageTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \Evorion\Evchat\Domain\Model\Message
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = new \Evorion\Evchat\Domain\Model\Message();
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Message();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function getBodyReturnsInitialValueForString() {
+	public function getBodyReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setBodyForStringSetsBody() { 
+		$this->fixture->setBody('Conceived at T3CON10');
+
 		$this->assertSame(
-			'',
-			$this->subject->getBody()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setBodyForStringSetsBody() {
-		$this->subject->setBody('Conceived at T3CON10');
-
-		$this->assertAttributeEquals(
 			'Conceived at T3CON10',
-			'body',
-			$this->subject
+			$this->fixture->getBody()
 		);
 	}
+	
+	/**
+	 * @test
+	 */
+	public function getTimeReturnsInitialValueForDateTime() { }
 
 	/**
 	 * @test
 	 */
-	public function getTimeReturnsInitialValueForDateTime() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getTime()
-		);
-	}
-
+	public function setTimeForDateTimeSetsTime() { }
+	
 	/**
 	 * @test
 	 */
-	public function setTimeForDateTimeSetsTime() {
-		$dateTimeFixture = new \DateTime();
-		$this->subject->setTime($dateTimeFixture);
-
-		$this->assertAttributeEquals(
-			$dateTimeFixture,
-			'time',
-			$this->subject
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getAdministratorReturnsInitialValueForInteger() {
+	public function getAdministratorReturnsInitialValueForInteger() { 
 		$this->assertSame(
 			0,
-			$this->subject->getAdministrator()
+			$this->fixture->getAdministrator()
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function setAdministratorForIntegerSetsAdministrator() {
-		$this->subject->setAdministrator(12);
+	public function setAdministratorForIntegerSetsAdministrator() { 
+		$this->fixture->setAdministrator(12);
 
-		$this->assertAttributeEquals(
+		$this->assertSame(
 			12,
-			'administrator',
-			$this->subject
+			$this->fixture->getAdministrator()
 		);
 	}
+	
+	/**
+	 * @test
+	 */
+	public function getConversationReturnsInitialValueForConversation() { }
 
 	/**
 	 * @test
 	 */
-	public function getConversationReturnsInitialValueForConversation() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getConversation()
-		);
-	}
+	public function setConversationForConversationSetsConversation() { }
+	
+	/**
+	 * @test
+	 */
+	public function getVisitorReturnsInitialValueForVisitor() { }
 
 	/**
 	 * @test
 	 */
-	public function setConversationForConversationSetsConversation() {
-		$conversationFixture = new \Evorion\Evchat\Domain\Model\Conversation();
-		$this->subject->setConversation($conversationFixture);
-
-		$this->assertAttributeEquals(
-			$conversationFixture,
-			'conversation',
-			$this->subject
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getVisitorReturnsInitialValueForVisitor() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getVisitor()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setVisitorForVisitorSetsVisitor() {
-		$visitorFixture = new \Evorion\Evchat\Domain\Model\Visitor();
-		$this->subject->setVisitor($visitorFixture);
-
-		$this->assertAttributeEquals(
-			$visitorFixture,
-			'visitor',
-			$this->subject
-		);
-	}
+	public function setVisitorForVisitorSetsVisitor() { }
+	
 }
+?>

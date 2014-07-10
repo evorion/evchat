@@ -1,12 +1,11 @@
 <?php
 
-namespace Evorion\Evchat\Tests\Unit\Domain\Model;
-
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,68 +28,62 @@ namespace Evorion\Evchat\Tests\Unit\Domain\Model;
 /**
  * Test case for class \Evorion\Evchat\Domain\Model\Event.
  *
+ * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
+ * @package TYPO3
+ * @subpackage Visitor chat
+ *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \Evorion\Evchat\Domain\Model\Event
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = new \Evorion\Evchat\Domain\Model\Event();
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Event();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function getObjectReturnsInitialValueForString() {
+	public function getObjectReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setObjectForStringSetsObject() { 
+		$this->fixture->setObject('Conceived at T3CON10');
+
 		$this->assertSame(
-			'',
-			$this->subject->getObject()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setObjectForStringSetsObject() {
-		$this->subject->setObject('Conceived at T3CON10');
-
-		$this->assertAttributeEquals(
 			'Conceived at T3CON10',
-			'object',
-			$this->subject
+			$this->fixture->getObject()
 		);
 	}
+	
+	/**
+	 * @test
+	 */
+	public function getEventReturnsInitialValueForString() { }
 
 	/**
 	 * @test
 	 */
-	public function getEventReturnsInitialValueForString() {
+	public function setEventForStringSetsEvent() { 
+		$this->fixture->setEvent('Conceived at T3CON10');
+
 		$this->assertSame(
-			'',
-			$this->subject->getEvent()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setEventForStringSetsEvent() {
-		$this->subject->setEvent('Conceived at T3CON10');
-
-		$this->assertAttributeEquals(
 			'Conceived at T3CON10',
-			'event',
-			$this->subject
+			$this->fixture->getEvent()
 		);
 	}
+	
 }
+?>

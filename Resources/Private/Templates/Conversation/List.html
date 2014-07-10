@@ -18,12 +18,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <table  class="tx_evchat" >
 	<tr>
+		<th><f:translate key="tx_evchat_domain_model_conversation.conversation_key" /></th>
 		<th> </th>
 		<th> </th>
 	</tr>
 
 	<f:for each="{conversations}" as="conversation">
 		<tr>
+			<td><f:link.action action="show" arguments="{conversation : conversation}"> {conversation.conversationKey}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{conversation : conversation}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{conversation : conversation}">Delete</f:link.action></td>
 		</tr>

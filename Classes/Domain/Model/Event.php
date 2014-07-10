@@ -2,11 +2,10 @@
 namespace Evorion\Evchat\Domain\Model;
 
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,28 +26,32 @@ namespace Evorion\Evchat\Domain\Model;
  ***************************************************************/
 
 /**
- * Event
+ *
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
 class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * object
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $object = '';
+	protected $object;
 
 	/**
 	 * event
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $event = '';
+	protected $event;
 
 	/**
 	 * Returns the object
 	 *
-	 * @return string $object
+	 * @return \string $object
 	 */
 	public function getObject() {
 		return $this->object;
@@ -57,7 +60,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the object
 	 *
-	 * @param string $object
+	 * @param \string $object
 	 * @return void
 	 */
 	public function setObject($object) {
@@ -67,7 +70,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the event
 	 *
-	 * @return string $event
+	 * @return \string $event
 	 */
 	public function getEvent() {
 		return $this->event;
@@ -76,7 +79,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the event
 	 *
-	 * @param string $event
+	 * @param \string $event
 	 * @return void
 	 */
 	public function setEvent($event) {
@@ -84,3 +87,4 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 }
+?>

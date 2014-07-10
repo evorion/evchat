@@ -1,5 +1,5 @@
 <?php
-namespace Evorion\Evchat\Tests\Unit\Controller;
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -25,66 +25,37 @@ namespace Evorion\Evchat\Tests\Unit\Controller;
  ***************************************************************/
 
 /**
- * Test case for class Evorion\Evchat\Controller\MessageController.
+ * Test case for class Tx_Evchat_Controller_MessageController.
+ *
+ * @version $Id$
+ * @copyright Copyright belongs to the respective authors
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ * @package TYPO3
+ * @subpackage Visitor chat
  *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class MessageControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-
+class MessageControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Evorion\Evchat\Controller\MessageController
+	 * @var 
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = $this->getMock('Evorion\\Evchat\\Controller\\MessageController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Message();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
-	}
-
-	/**
-	 * @test
-	 */
-	public function listActionFetchesAllMessagesFromRepositoryAndAssignsThemToView() {
-
-		$allMessages = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array(), array(), '', FALSE);
-
-		$messageRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\MessageRepository', array('findAll'), array(), '', FALSE);
-		$messageRepository->expects($this->once())->method('findAll')->will($this->returnValue($allMessages));
-		$this->inject($this->subject, 'messageRepository', $messageRepository);
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('messages', $allMessages);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->listAction();
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function newActionAssignsTheGivenMessageToView() {
-		$message = new \Evorion\Evchat\Domain\Model\Message();
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('newMessage', $message);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->newAction($message);
+	public function dummyMethod() {
+		$this->markTestIncomplete();
 	}
 
-	/**
-	 * @test
-	 */
-	public function createActionAddsTheGivenMessageToMessageRepository() {
-		$message = new \Evorion\Evchat\Domain\Model\Message();
-
-		$messageRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\MessageRepository', array('add'), array(), '', FALSE);
-		$messageRepository->expects($this->once())->method('add')->with($message);
-		$this->inject($this->subject, 'messageRepository', $messageRepository);
-
-		$this->subject->createAction($message);
-	}
 }
+?>
