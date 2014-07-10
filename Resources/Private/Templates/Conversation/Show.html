@@ -12,10 +12,27 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Single View for Conversation</h1>
 
-<f:flashMessages />
-<f:render partial="Conversation/Properties" arguments="{conversation:conversation}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="new">New Conversation</f:link.action>
+<div class="tx-evchat" data-conversationkey="{conversation.conversationKey}">
+
+	<div class="tx-evchat-titleBar">
+		<img class="tx-evchat-titleBar-chatIcon" src="/{f:uri.resource(path:'Icons/chat.png')}" alt="Chat Icon" />
+		<h3 class="tx-evchat-titleBar-title"><f:translate key="tx_evchat_domain_model_conversation.initialTitle" /></h3>
+		<img class="tx-evchat-titleBar-toggleIcon" src="/{f:uri.resource(path:'Icons/restore.png')}" alt="Toggle Icon" />
+	</div>
+
+	<div class="tx-evchat-window">
+		<f:flashMessages renderMode="div" />
+		
+		<div class="tx-evchat-conversation">
+		</div>
+	
+		<f:render partial="Message/New" arguments="{conversationKey: conversation.conversationKey}" />
+	</div>
+
+	<!-- List action URL is shown so that client JS can know where to access the list controller -->
+	<f:link.action action="list" controller="Message" class="listActionURL" style="display: none">List messages</f:link.action>
+
+</div>
+
 </f:section>
