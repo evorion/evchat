@@ -5,7 +5,7 @@ namespace Evorion\Evchat\Controller;
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,13 +26,18 @@ namespace Evorion\Evchat\Controller;
  ***************************************************************/
 
 /**
- *
- *
  * @package evchat
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+	/**
+	 * eventRepository
+	 *
+	 * @var \Evorion\Evchat\Domain\Repository\EventRepository
+	 * @inject
+	 */
+	protected $eventRepository = NULL;
 
 	/**
 	 * conversationRepository
@@ -40,7 +45,29 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @var \Evorion\Evchat\Domain\Repository\ConversationRepository
 	 * @inject
 	 */
-	protected $conversationRepository;
+	protected $conversationRepository = NULL;
+	
+	/**
+	 * visitorRepository
+	 *
+	 * @var \Evorion\Evchat\Domain\Repository\VisitorRepository
+	 * @inject
+	 */
+	protected $visitorRepository = NULL;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager = NULL;
+
+	/**
+	 * Session Service provides access to user's PHP session
+	 *
+	 * @var \Evorion\Evchat\Domain\Service\SessionService
+	 * @inject
+	 */
+	protected $sessionService = NULL;
 
 	/**
 	 * action list
@@ -59,7 +86,47 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function showAction(\Evorion\Evchat\Domain\Model\Conversation $conversation = NULL) {
+
+		// Get the conversationKey either from an argument or the session
+		if ($this->request->hasArgument('conversationKey'))
+			$conversationKey = $this->request->getArgument('conversationKey');
+		else
+			$conversationKey = $this->sessionService->get('conversationKey');
+
+		if ($conversation === NULL && $conversationKey)
+			$conversation = $this->conversationRepository->findByConversationKey($conversationKey)->getFirst();
+		else if ($conversation === NULL) {
+			// There is no conversation so we create a new one
+			$conversationKey = uniqid('', TRUE);
+			$this->sessionService->set('conversationKey', $conversationKey);
+			$conversation = $this->objectManager->get('Evorion\\Evchat\\Domain\\Model\\Conversation');
+			$conversation->setConversationKey($conversationKey);
+			$result = $this->conversationRepository->add($conversation);
+			
+			// Since we created a conversation there must be a Visitor that started it
+			$visitor = $this->objectManager->get('Evorion\\Evchat\\Domain\\Model\\Visitor');
+			$this->visitorRepository->add($visitor);
+			
+			// We need to persist here so we can get the database ID of the Visitor
+			$persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+			$persistenceManager->persistAll();
+
+			// Save the uid of the visitor to the session
+			$this->sessionService->set('Visitor', $visitor->getUid());
+
+			// Create an Event which will trigger pollers
+			$event = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Evorion\\Evchat\\Domain\\Model\\Event');
+			$event->setObject('Conversation');
+			$event->setEvent(
+					json_encode(array(
+						'conversationKey' => $conversationKey,
+					))
+			);
+			$this->eventRepository->add($event);
+		}
+
 		$this->view->assign('conversation', $conversation);
+
 	}
 
 	/**
@@ -125,8 +192,7 @@ class ConversationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function pollAction() {
-
+		
 	}
 
 }
-?>
