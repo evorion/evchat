@@ -1,5 +1,5 @@
 <?php
-namespace Evorion\Evchat\Tests\Unit\Controller;
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -25,79 +25,37 @@ namespace Evorion\Evchat\Tests\Unit\Controller;
  ***************************************************************/
 
 /**
- * Test case for class Evorion\Evchat\Controller\EventController.
+ * Test case for class Tx_Evchat_Controller_EventController.
+ *
+ * @version $Id$
+ * @copyright Copyright belongs to the respective authors
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ * @package TYPO3
+ * @subpackage Visitor chat
  *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-
+class EventControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Evorion\Evchat\Controller\EventController
+	 * @var 
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = $this->getMock('Evorion\\Evchat\\Controller\\EventController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Event();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
-	}
-
-	/**
-	 * @test
-	 */
-	public function listActionFetchesAllEventsFromRepositoryAndAssignsThemToView() {
-
-		$allEvents = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array(), array(), '', FALSE);
-
-		$eventRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\EventRepository', array('findAll'), array(), '', FALSE);
-		$eventRepository->expects($this->once())->method('findAll')->will($this->returnValue($allEvents));
-		$this->inject($this->subject, 'eventRepository', $eventRepository);
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('events', $allEvents);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->listAction();
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function newActionAssignsTheGivenEventToView() {
-		$event = new \Evorion\Evchat\Domain\Model\Event();
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('newEvent', $event);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->newAction($event);
+	public function dummyMethod() {
+		$this->markTestIncomplete();
 	}
 
-	/**
-	 * @test
-	 */
-	public function createActionAddsTheGivenEventToEventRepository() {
-		$event = new \Evorion\Evchat\Domain\Model\Event();
-
-		$eventRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\EventRepository', array('add'), array(), '', FALSE);
-		$eventRepository->expects($this->once())->method('add')->with($event);
-		$this->inject($this->subject, 'eventRepository', $eventRepository);
-
-		$this->subject->createAction($event);
-	}
-
-	/**
-	 * @test
-	 */
-	public function deleteActionRemovesTheGivenEventFromEventRepository() {
-		$event = new \Evorion\Evchat\Domain\Model\Event();
-
-		$eventRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\EventRepository', array('remove'), array(), '', FALSE);
-		$eventRepository->expects($this->once())->method('remove')->with($event);
-		$this->inject($this->subject, 'eventRepository', $eventRepository);
-
-		$this->subject->deleteAction($event);
-	}
 }
+?>

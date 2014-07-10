@@ -1,12 +1,11 @@
 <?php
 
-namespace Evorion\Evchat\Tests\Unit\Domain\Model;
-
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,29 +28,38 @@ namespace Evorion\Evchat\Tests\Unit\Domain\Model;
 /**
  * Test case for class \Evorion\Evchat\Domain\Model\Visitor.
  *
+ * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
+ * @package TYPO3
+ * @subpackage Visitor chat
+ *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class VisitorTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class VisitorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \Evorion\Evchat\Domain\Model\Visitor
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = new \Evorion\Evchat\Domain\Model\Visitor();
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Visitor();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function dummyTestToNotLeaveThisFileEmpty() {
-		$this->markTestIncomplete();
-	}
+	public function getLastActivityReturnsInitialValueForInt() { }
+
+	/**
+	 * @test
+	 */
+	public function setLastActivityForIntSetsLastActivity() { }
+	
 }
+?>

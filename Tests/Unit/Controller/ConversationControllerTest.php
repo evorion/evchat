@@ -1,5 +1,5 @@
 <?php
-namespace Evorion\Evchat\Tests\Unit\Controller;
+namespace Evorion\Evchat\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -25,118 +25,37 @@ namespace Evorion\Evchat\Tests\Unit\Controller;
  ***************************************************************/
 
 /**
- * Test case for class Evorion\Evchat\Controller\ConversationController.
+ * Test case for class Tx_Evchat_Controller_ConversationController.
+ *
+ * @version $Id$
+ * @copyright Copyright belongs to the respective authors
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ * @package TYPO3
+ * @subpackage Visitor chat
  *
  * @author Vlatko Šurlan <vlatko.surlan@evorion.hr>
  */
-class ConversationControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-
+class ConversationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Evorion\Evchat\Controller\ConversationController
+	 * @var 
 	 */
-	protected $subject = NULL;
+	protected $fixture;
 
-	protected function setUp() {
-		$this->subject = $this->getMock('Evorion\\Evchat\\Controller\\ConversationController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
+	public function setUp() {
+		$this->fixture = new \Evorion\Evchat\Domain\Model\Conversation();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
-	}
-
-	/**
-	 * @test
-	 */
-	public function listActionFetchesAllConversationsFromRepositoryAndAssignsThemToView() {
-
-		$allConversations = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array(), array(), '', FALSE);
-
-		$conversationRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\ConversationRepository', array('findAll'), array(), '', FALSE);
-		$conversationRepository->expects($this->once())->method('findAll')->will($this->returnValue($allConversations));
-		$this->inject($this->subject, 'conversationRepository', $conversationRepository);
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('conversations', $allConversations);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->listAction();
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
 	 * @test
 	 */
-	public function showActionAssignsTheGivenConversationToView() {
-		$conversation = new \Evorion\Evchat\Domain\Model\Conversation();
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$this->inject($this->subject, 'view', $view);
-		$view->expects($this->once())->method('assign')->with('conversation', $conversation);
-
-		$this->subject->showAction($conversation);
+	public function dummyMethod() {
+		$this->markTestIncomplete();
 	}
 
-	/**
-	 * @test
-	 */
-	public function newActionAssignsTheGivenConversationToView() {
-		$conversation = new \Evorion\Evchat\Domain\Model\Conversation();
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$view->expects($this->once())->method('assign')->with('newConversation', $conversation);
-		$this->inject($this->subject, 'view', $view);
-
-		$this->subject->newAction($conversation);
-	}
-
-	/**
-	 * @test
-	 */
-	public function createActionAddsTheGivenConversationToConversationRepository() {
-		$conversation = new \Evorion\Evchat\Domain\Model\Conversation();
-
-		$conversationRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\ConversationRepository', array('add'), array(), '', FALSE);
-		$conversationRepository->expects($this->once())->method('add')->with($conversation);
-		$this->inject($this->subject, 'conversationRepository', $conversationRepository);
-
-		$this->subject->createAction($conversation);
-	}
-
-	/**
-	 * @test
-	 */
-	public function editActionAssignsTheGivenConversationToView() {
-		$conversation = new \Evorion\Evchat\Domain\Model\Conversation();
-
-		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$this->inject($this->subject, 'view', $view);
-		$view->expects($this->once())->method('assign')->with('conversation', $conversation);
-
-		$this->subject->editAction($conversation);
-	}
-
-	/**
-	 * @test
-	 */
-	public function updateActionUpdatesTheGivenConversationInConversationRepository() {
-		$conversation = new \Evorion\Evchat\Domain\Model\Conversation();
-
-		$conversationRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\ConversationRepository', array('update'), array(), '', FALSE);
-		$conversationRepository->expects($this->once())->method('update')->with($conversation);
-		$this->inject($this->subject, 'conversationRepository', $conversationRepository);
-
-		$this->subject->updateAction($conversation);
-	}
-
-	/**
-	 * @test
-	 */
-	public function deleteActionRemovesTheGivenConversationFromConversationRepository() {
-		$conversation = new \Evorion\Evchat\Domain\Model\Conversation();
-
-		$conversationRepository = $this->getMock('Evorion\\Evchat\\Domain\\Repository\\ConversationRepository', array('remove'), array(), '', FALSE);
-		$conversationRepository->expects($this->once())->method('remove')->with($conversation);
-		$this->inject($this->subject, 'conversationRepository', $conversationRepository);
-
-		$this->subject->deleteAction($conversation);
-	}
 }
+?>

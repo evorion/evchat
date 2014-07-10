@@ -2,11 +2,10 @@
 namespace Evorion\Evchat\Domain\Repository;
 
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,24 +26,13 @@ namespace Evorion\Evchat\Domain\Repository;
  ***************************************************************/
 
 /**
- * The repository for Messages
+ *
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
 class MessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-	// Find all with uid greater than $lastReceivedUID
-	/**
-	 * @param $conversationKey
-	 * @param $lastReceivedMessage
-	 */
-	public function findNew($conversationKey, $lastReceivedMessage = 0) {
-		$query = $this->createQuery();
-		$query->matching(
-			$query->logicalAnd(
-				$query->equals('conversation.conversationKey', $conversationKey),
-				$query->greaterThan('uid', $lastReceivedMessage)
-			)
-		);
-		return $query->execute();
-	}
-
 }
+?>

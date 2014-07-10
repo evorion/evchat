@@ -1,4 +1,4 @@
-<f:layout name="Empty" />
+<f:layout name="Default" />
 
 This Template is responsible for creating a table of domain objects.
 
@@ -12,8 +12,29 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
+<h1>Listing for Message</h1>
 
-	<f:flashMessages />
-	<f:render partial="Message/List" arguments="{_all}" />
+<f:flashMessages />
 
+<table  class="tx_evchat" >
+	<tr>
+		<th><f:translate key="tx_evchat_domain_model_message.body" /></th>
+		<th><f:translate key="tx_evchat_domain_model_message.time" /></th>
+		<th><f:translate key="tx_evchat_domain_model_message.administrator" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{messages}" as="message">
+		<tr>
+			<td><f:link.action action="show" arguments="{message : message}"> {message.body}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{message : message}"> {message.time -> f:format.date()}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{message : message}"> {message.administrator}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{message : message}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{message : message}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New Message</f:link.action>
 </f:section>

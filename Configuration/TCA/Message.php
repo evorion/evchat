@@ -3,19 +3,18 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_evchat_domain_model_message']['ctrl'],
+$TCA['tx_evchat_domain_model_message'] = array(
+	'ctrl' => $TCA['tx_evchat_domain_model_message']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, body, time, administrator, conversation, visitor',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, body, time, administrator, conversation, visitor, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, body, time, administrator, conversation, visitor,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
 	),
 	'columns' => array(
-	
 		'sys_language_uid' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
@@ -47,7 +46,6 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				'type' => 'passthrough',
 			),
 		),
-
 		't3ver_label' => array(
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
 			'config' => array(
@@ -56,7 +54,6 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				'max' => 255,
 			)
 		),
-	
 		'hidden' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
@@ -96,7 +93,6 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				),
 			),
 		),
-
 		'body' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_message.body',
@@ -105,7 +101,7 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				'cols' => 40,
 				'rows' => 15,
 				'eval' => 'trim'
-			)
+			),
 		),
 		'time' => array(
 			'exclude' => 1,
@@ -125,7 +121,7 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'int'
-			)
+			),
 		),
 		'conversation' => array(
 			'exclude' => 1,
@@ -154,7 +150,7 @@ $GLOBALS['TCA']['tx_evchat_domain_model_message'] = array(
 				),
 			),
 		),
-		
 	),
 );
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+
+?>

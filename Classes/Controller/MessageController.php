@@ -5,7 +5,7 @@ namespace Evorion\Evchat\Controller;
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,8 +26,11 @@ namespace Evorion\Evchat\Controller;
  ***************************************************************/
 
 /**
+ *
+ *
  * @package evchat
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
 class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
@@ -37,47 +40,15 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @var \Evorion\Evchat\Domain\Repository\MessageRepository
 	 * @inject
 	 */
-	protected $messageRepository = NULL;
-
-	/**
-	 * conversationRepository
-	 *
-	 * @var \Evorion\Evchat\Domain\Repository\ConversationRepository
-	 * @inject
-	 */
-	protected $conversationRepository = NULL;
-
-	/**
-	 * eventRepository
-	 *
-	 * @var \Evorion\Evchat\Domain\Repository\EventRepository
-	 * @inject
-	 */
-	protected $eventRepository = NULL;
-
-	/**
-	 * visitorRepository
-	 *
-	 * @var \Evorion\Evchat\Domain\Repository\VisitorRepository
-	 * @inject
-	 */
-	protected $visitorRepository = NULL;
-
-	/**
-	 * Session Service provides access to user's PHP session
-	 *
-	 * @var \Evorion\Evchat\Domain\Service\SessionService
-	 * @inject
-	 */
-	protected $sessionService = NULL;
+	protected $messageRepository;
 
 	/**
 	 * action list
 	 *
-	 * @param int $tracker
 	 * @return void
 	 */
-	public function listAction($tracker = 0) {
+	public function listAction() {
+		$messages = $this->messageRepository->findAll();
 		$this->view->assign('messages', $messages);
 	}
 
@@ -99,36 +70,10 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @return void
 	 */
 	public function createAction(\Evorion\Evchat\Domain\Model\Message $newMessage) {
-
-		// Connect the Message to the Conversation
-		$conversation = $this->conversationRepository->findOneByConversationKey($this->request->getArgument('conversationKey'));
-		if (!is_object($conversation)) throw Exception('Failed to find conversation by key!');
-		$newMessage->setConversation($conversation);
-
-		// Connect the message to either a Visitor or an Administrator
-		if ($GLOBALS['BE_USER']) {
-			$newMessage->setAdministrator($GLOBALS['BE_USER']->user['uid']);
-		} else {
-			$visitorUID = $this->sessionService->get('Visitor');
-			$visitor = $this->visitorRepository->findByUid($visitorUID);
-			$newMessage->setVisitor($visitor);
-		}
-
 		$this->messageRepository->add($newMessage);
-		
-		// Create an Event which will trigger pollers
-		$event = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Evorion\\Evchat\\Domain\\Model\\Event');
-		$event->setObject('Message\\' . $conversation->getConversationKey());
-		$event->setEvent(
-			json_encode(array(
-				'body'				=> $newMessage->getBody(),
-				'admin'				=> $newMessage->getAdministrator() ? $newMessage->getAdministrator() : NULL,
-				'visitor'			=> $newMessage->getVisitor() ? $newMessage->getVisitor()->getUid() : NULL
-			))
-		);
-		$this->eventRepository->add($event);
-		return json_encode(array('result' => true));
-
+		$this->flashMessageContainer->add('Your new Message was created.');
+		$this->redirect('list');
 	}
 
 }
+?>

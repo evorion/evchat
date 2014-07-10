@@ -5,7 +5,7 @@ namespace Evorion\Evchat\Domain\Model;
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,47 +26,48 @@ namespace Evorion\Evchat\Domain\Model;
  ***************************************************************/
 
 /**
- * Message
+ *
  *
  * @package evchat
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
 class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * body
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $body = '';
+	protected $body;
 
 	/**
 	 * time
 	 *
 	 * @var \DateTime
 	 */
-	protected $time = NULL;
+	protected $time;
+
+	/**
+	 * administrator
+	 *
+	 * @var \integer
+	 */
+	protected $administrator;
 
 	/**
 	 * Parent conversation
 	 *
 	 * @var \Evorion\Evchat\Domain\Model\Conversation
 	 */
-	protected $conversation = NULL;
+	protected $conversation;
 
 	/**
 	 * Visitor that sent the message, if it was a visitor.
 	 *
 	 * @var \Evorion\Evchat\Domain\Model\Visitor
 	 */
-	protected $visitor = NULL;
-
-	/**
-	 * administrator
-	 *
-	 * @var integer
-	 */
-	protected $administrator = 0;
+	protected $visitor;
 
 	/**
 	 * Returns the body
@@ -107,6 +108,25 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns the administrator
+	 *
+	 * @return \integer $administrator
+	 */
+	public function getAdministrator() {
+		return $this->administrator;
+	}
+
+	/**
+	 * Sets the administrator
+	 *
+	 * @param \integer $administrator
+	 * @return void
+	 */
+	public function setAdministrator($administrator) {
+		$this->administrator = $administrator;
+	}
+
+	/**
 	 * Returns the conversation
 	 *
 	 * @return \Evorion\Evchat\Domain\Model\Conversation $conversation
@@ -144,23 +164,5 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->visitor = $visitor;
 	}
 
-	/**
-	 * Returns the administrator
-	 *
-	 * @return integer $administrator
-	 */
-	public function getAdministrator() {
-		return $this->administrator;
-	}
-
-	/**
-	 * Sets the administrator
-	 *
-	 * @param integer $administrator
-	 * @return void
-	 */
-	public function setAdministrator($administrator) {
-		$this->administrator = $administrator;
-	}
-
 }
+?>
