@@ -1,340 +1,265 @@
 {
-    "modules": [
-        {
-            "config": {
-                "position": [
-                    278,
-                    15
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": true,
-                    "_default4_delete": true,
-                    "customActions": [
-                        "poll"
-                    ]
-                },
-                "name": "Conversation",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": true,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "465932127549"
-                },
-                "propertyGroup": {
-                    "properties": [
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsRequired": false,
-                            "propertyName": "conversationKey",
-                            "propertyType": "String",
-                            "uid": "465048200026"
-                        }
-                    ]
-                },
-                "relationGroup": {
-                    "relations": [
-
-                    ]
-                }
-            }
+    "modules": [{
+        "config": {
+            "position": [278, 15]
         },
-        {
-            "config": {
-                "position": [
-                    132,
-                    402
-                ]
+        "name": "New Model Object",
+        "value": {
+            "actionGroup": {
+                "_default0_list": true,
+                "_default1_show": true,
+                "_default2_new_create": true,
+                "_default3_edit_update": true,
+                "_default4_delete": true,
+                "customActions": ["poll"]
             },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": false,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": [
-
-                    ]
-                },
-                "name": "Message",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": true,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "16001901221"
-                },
-                "propertyGroup": {
-                    "properties": [
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsRequired": false,
-                            "propertyName": "body",
-                            "propertyType": "Text",
-                            "uid": "1029413960524"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsRequired": false,
-                            "propertyName": "time",
-                            "propertyType": "DateTime",
-                            "uid": "300805990786"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsRequired": false,
-                            "propertyName": "administrator",
-                            "propertyType": "Integer",
-                            "uid": "1176594355039"
-                        }
-                    ]
-                },
-                "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "Parent conversation",
-                            "relationName": "conversation",
-                            "relationType": "manyToOne",
-                            "relationWire": "[wired]",
-                            "uid": "1115506996879"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "Visitor that sent the message, if it was a visitor.",
-                            "relationName": "visitor",
-                            "relationType": "zeroToOne",
-                            "relationWire": "[wired]",
-                            "uid": "62802709028"
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    40,
-                    121
-                ]
+            "name": "Conversation",
+            "objectsettings": {
+                "aggregateRoot": true,
+                "description": "",
+                "mapToTable": "",
+                "parentClass": "",
+                "sorting": false,
+                "type": "Entity",
+                "uid": "465932127549"
             },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": [
-
-                    ]
-                },
-                "name": "Visitor",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": true,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "1304691457012"
-                },
-                "propertyGroup": {
-                    "properties": [
-
-                    ]
-                },
-                "relationGroup": {
-                    "relations": [
-
-                    ]
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    687,
-                    185
-                ]
+            "propertyGroup": {
+                "properties": [{
+                    "propertyDescription": "",
+                    "propertyIsExcludeField": true,
+                    "propertyIsRequired": false,
+                    "propertyName": "conversationKey",
+                    "propertyType": "String",
+                    "uid": "465048200026"
+                }]
             },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": false,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": false,
-                    "_default4_delete": true,
-                    "customActions": [
-
-                    ]
-                },
-                "name": "Event",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": true,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "15649447368"
-                },
-                "propertyGroup": {
-                    "properties": [
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsRequired": false,
-                            "propertyName": "object",
-                            "propertyType": "String",
-                            "uid": "872954633168"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsRequired": false,
-                            "propertyName": "event",
-                            "propertyType": "String",
-                            "uid": "571388664667"
-                        }
-                    ]
-                },
-                "relationGroup": {
-                    "relations": [
-
-                    ]
-                }
+            "relationGroup": {
+                "relations": []
             }
         }
-    ],
-    "properties": {
-        "backendModules": [
-            {
-                "actions": {
-                    "controllerActionCombinations": ""
-                },
-                "description": "Visitor support chat - administrative interface",
-                "key": "evchatbe",
-                "mainModule": "tools",
-                "name": "Visitor chat",
-                "tabLabel": "Visitor chat"
+    }, {
+        "config": {
+            "position": [494, 389]
+        },
+        "name": "New Model Object",
+        "value": {
+            "actionGroup": {
+                "_default0_list": true,
+                "_default1_show": false,
+                "_default2_new_create": true,
+                "_default3_edit_update": false,
+                "_default4_delete": false,
+                "customActions": []
+            },
+            "name": "Message",
+            "objectsettings": {
+                "aggregateRoot": true,
+                "description": "",
+                "mapToTable": "",
+                "parentClass": "",
+                "sorting": false,
+                "type": "Entity",
+                "uid": "16001901221"
+            },
+            "propertyGroup": {
+                "properties": [{
+                    "propertyDescription": "",
+                    "propertyIsExcludeField": true,
+                    "propertyIsRequired": false,
+                    "propertyName": "body",
+                    "propertyType": "Text",
+                    "uid": "1029413960524"
+                }, {
+                    "propertyDescription": "",
+                    "propertyIsExcludeField": true,
+                    "propertyIsRequired": false,
+                    "propertyName": "time",
+                    "propertyType": "DateTime",
+                    "uid": "300805990786"
+                }, {
+                    "propertyDescription": "",
+                    "propertyIsExcludeField": true,
+                    "propertyIsRequired": false,
+                    "propertyName": "administrator",
+                    "propertyType": "Integer",
+                    "uid": "1176594355039"
+                }]
+            },
+            "relationGroup": {
+                "relations": [{
+                    "foreignRelationClass": "",
+                    "lazyLoading": false,
+                    "propertyIsExcludeField": true,
+                    "relationDescription": "Parent conversation",
+                    "relationName": "conversation",
+                    "relationType": "manyToOne",
+                    "relationWire": "[wired]",
+                    "uid": "1115506996879"
+                }, {
+                    "foreignRelationClass": "",
+                    "lazyLoading": false,
+                    "propertyIsExcludeField": true,
+                    "relationDescription": "Visitor that sent the message, if it was a visitor.",
+                    "relationName": "visitor",
+                    "relationType": "zeroToOne",
+                    "relationWire": "[wired]",
+                    "uid": "62802709028"
+                }]
             }
-        ],
+        }
+    }, {
+        "config": {
+            "position": [13, 250]
+        },
+        "name": "New Model Object",
+        "value": {
+            "actionGroup": {
+                "_default0_list": true,
+                "_default1_show": true,
+                "_default2_new_create": true,
+                "_default3_edit_update": true,
+                "_default4_delete": false,
+                "customActions": []
+            },
+            "name": "Visitor",
+            "objectsettings": {
+                "aggregateRoot": true,
+                "description": "",
+                "mapToTable": "",
+                "parentClass": "",
+                "sorting": false,
+                "type": "Entity",
+                "uid": "1304691457012"
+            },
+            "propertyGroup": {
+                "properties": [{
+                    "propertyDescription": "Last time visitor made any action",
+                    "propertyIsExcludeField": false,
+                    "propertyIsRequired": true,
+                    "propertyName": "lastActivity",
+                    "propertyType": "TimeSec",
+                    "uid": "255056807213"
+                }]
+            },
+            "relationGroup": {
+                "relations": []
+            }
+        }
+    }, {
+        "config": {
+            "position": [687, 185]
+        },
+        "name": "New Model Object",
+        "value": {
+            "actionGroup": {
+                "_default0_list": true,
+                "_default1_show": false,
+                "_default2_new_create": true,
+                "_default3_edit_update": false,
+                "_default4_delete": true,
+                "customActions": []
+            },
+            "name": "Event",
+            "objectsettings": {
+                "aggregateRoot": true,
+                "description": "",
+                "mapToTable": "",
+                "parentClass": "",
+                "sorting": false,
+                "type": "Entity",
+                "uid": "15649447368"
+            },
+            "propertyGroup": {
+                "properties": [{
+                    "propertyDescription": "",
+                    "propertyIsExcludeField": true,
+                    "propertyIsRequired": false,
+                    "propertyName": "object",
+                    "propertyType": "String",
+                    "uid": "872954633168"
+                }, {
+                    "propertyDescription": "",
+                    "propertyIsExcludeField": true,
+                    "propertyIsRequired": false,
+                    "propertyName": "event",
+                    "propertyType": "String",
+                    "uid": "571388664667"
+                }]
+            },
+            "relationGroup": {
+                "relations": []
+            }
+        }
+    }],
+    "properties": {
+        "backendModules": [{
+            "actions": {
+                "controllerActionCombinations": ""
+            },
+            "description": "Visitor support chat - administrative interface",
+            "key": "evchatbe",
+            "mainModule": "tools",
+            "name": "Visitor chat",
+            "tabLabel": "Visitor chat"
+        }],
         "description": "Support your visitors\/customers with a live AJAX chat!",
         "emConf": {
             "category": "plugin",
             "custom_category": "",
             "dependsOn": "typo3 => 6.1\n\n",
-            "disableLocalization": false,
             "disableVersioning": false,
-            "sourceLanguage": "en",
+            "priority": "",
+            "shy": false,
             "state": "alpha",
-            "targetVersion": "6.2",
+            "targetVersion": "6.0",
             "version": ""
         },
         "extensionKey": "evchat",
         "name": "Visitor chat",
         "originalExtensionKey": "evchat",
-        "persons": [
-            {
-                "company": "Evorion mediji j.d.o.o.",
-                "email": "vlatko.surlan@evorion.hr",
-                "name": "Vlatko \u0160urlan",
-                "role": "Developer"
-            }
-        ],
-        "plugins": [
-            {
-                "actions": {
-                    "controllerActionCombinations": "Conversation=>show,list,new,create,edit,update,delete\nMessage=>create,list\n",
-                    "noncacheableActions": "Conversation=>create,update,delete\n",
-                    "switchableActions": ""
-                },
-                "key": "evchatfe",
-                "name": "Visitor chat"
-            }
-        ],
+        "persons": [{
+            "company": "Evorion mediji j.d.o.o.",
+            "email": "vlatko.surlan@evorion.hr",
+            "name": "Vlatko \u0160urlan",
+            "role": "Developer"
+        }],
+        "plugins": [{
+            "actions": {
+                "controllerActionCombinations": "Conversation=>show,list,new,create,edit,update,delete\nMessage=>create,list\nEvent=>list\n",
+                "noncacheableActions": "Conversation=>show,list,new,create,edit,update,delete\nMessage=>create,list\nEvent=>list\n",
+                "switchableActions": ""
+            },
+            "key": "evchatfe",
+            "name": "Visitor chat"
+        }],
         "vendorName": "Evorion"
     },
-    "wires": [
-        {
-            "src": {
-                "moduleId": 1,
-                "terminal": "relationWire_0",
-                "uid": "1115506996879"
-            },
-            "tgt": {
-                "moduleId": 0,
-                "terminal": "SOURCES",
-                "uid": "465932127549"
-            }
+    "wires": [{
+        "src": {
+            "moduleId": 1,
+            "terminal": "relationWire_0",
+            "uid": "1115506996879"
         },
-        {
-            "src": {
-                "moduleId": 1,
-                "terminal": "relationWire_1",
-                "uid": "62802709028"
-            },
-            "tgt": {
-                "moduleId": 2,
-                "terminal": "SOURCES",
-                "uid": "1304691457012"
-            }
+        "tgt": {
+            "moduleId": 0,
+            "terminal": "SOURCES",
+            "uid": "465932127549"
         }
-    ],
+    }, {
+        "src": {
+            "moduleId": 1,
+            "terminal": "relationWire_1",
+            "uid": "62802709028"
+        },
+        "tgt": {
+            "moduleId": 2,
+            "terminal": "SOURCES",
+            "uid": "1304691457012"
+        }
+    }],
     "log": {
-        "last_modified": "2014-06-17 01:44",
-        "extension_builder_version": "6.2.0",
-        "be_user": "Vlatko \u0160urlan (1)"
+        "last_modified": "2014-07-09 11:25",
+        "extension_builder_version": "2.5.2",
+        "be_user": " (4)"
     }
 }

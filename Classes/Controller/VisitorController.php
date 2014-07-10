@@ -2,11 +2,10 @@
 namespace Evorion\Evchat\Controller;
 
 /***************************************************************
- *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +26,11 @@ namespace Evorion\Evchat\Controller;
  ***************************************************************/
 
 /**
- * VisitorController
+ *
+ *
+ * @package evchat
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
 class VisitorController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
@@ -37,7 +40,7 @@ class VisitorController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @var \Evorion\Evchat\Domain\Repository\VisitorRepository
 	 * @inject
 	 */
-	protected $visitorRepository = NULL;
+	protected $visitorRepository;
 
 	/**
 	 * action list
@@ -49,4 +52,60 @@ class VisitorController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$this->view->assign('visitors', $visitors);
 	}
 
+	/**
+	 * action show
+	 *
+	 * @param \Evorion\Evchat\Domain\Model\Visitor $visitor
+	 * @return void
+	 */
+	public function showAction(\Evorion\Evchat\Domain\Model\Visitor $visitor) {
+		$this->view->assign('visitor', $visitor);
+	}
+
+	/**
+	 * action new
+	 *
+	 * @param \Evorion\Evchat\Domain\Model\Visitor $newVisitor
+	 * @dontvalidate $newVisitor
+	 * @return void
+	 */
+	public function newAction(\Evorion\Evchat\Domain\Model\Visitor $newVisitor = NULL) {
+		$this->view->assign('newVisitor', $newVisitor);
+	}
+
+	/**
+	 * action create
+	 *
+	 * @param \Evorion\Evchat\Domain\Model\Visitor $newVisitor
+	 * @return void
+	 */
+	public function createAction(\Evorion\Evchat\Domain\Model\Visitor $newVisitor) {
+		$this->visitorRepository->add($newVisitor);
+		$this->flashMessageContainer->add('Your new Visitor was created.');
+		$this->redirect('list');
+	}
+
+	/**
+	 * action edit
+	 *
+	 * @param \Evorion\Evchat\Domain\Model\Visitor $visitor
+	 * @return void
+	 */
+	public function editAction(\Evorion\Evchat\Domain\Model\Visitor $visitor) {
+		$this->view->assign('visitor', $visitor);
+	}
+
+	/**
+	 * action update
+	 *
+	 * @param \Evorion\Evchat\Domain\Model\Visitor $visitor
+	 * @return void
+	 */
+	public function updateAction(\Evorion\Evchat\Domain\Model\Visitor $visitor) {
+		$this->visitorRepository->update($visitor);
+		$this->flashMessageContainer->add('Your Visitor was updated.');
+		$this->redirect('list');
+	}
+
 }
+?>

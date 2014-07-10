@@ -3,19 +3,18 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_evchat_domain_model_visitor'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_evchat_domain_model_visitor']['ctrl'],
+$TCA['tx_evchat_domain_model_visitor'] = array(
+	'ctrl' => $TCA['tx_evchat_domain_model_visitor']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_activity',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, last_activity,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
 	),
 	'columns' => array(
-	
 		'sys_language_uid' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
@@ -47,7 +46,6 @@ $GLOBALS['TCA']['tx_evchat_domain_model_visitor'] = array(
 				'type' => 'passthrough',
 			),
 		),
-
 		't3ver_label' => array(
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
 			'config' => array(
@@ -56,7 +54,6 @@ $GLOBALS['TCA']['tx_evchat_domain_model_visitor'] = array(
 				'max' => 255,
 			)
 		),
-	
 		'hidden' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
@@ -96,7 +93,18 @@ $GLOBALS['TCA']['tx_evchat_domain_model_visitor'] = array(
 				),
 			),
 		),
-
+		'last_activity' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evchat/Resources/Private/Language/locallang_db.xlf:tx_evchat_domain_model_visitor.last_activity',
+			'config' => array(
+				'type' => 'input',
+				'size' => 6,
+				'eval' => 'timesec,required',
+				'checkbox' => 1,
+				'default' => time()
+			),
+		),
 	),
 );
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+
+?>
