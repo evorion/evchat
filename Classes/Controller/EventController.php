@@ -2,10 +2,11 @@
 namespace Evorion\Evchat\Controller;
 
 /***************************************************************
+ *
  *  Copyright notice
  *
  *  (c) 2014 Vlatko Šurlan <vlatko.surlan@evorion.hr>, Evorion mediji j.d.o.o.
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,11 +27,7 @@ namespace Evorion\Evchat\Controller;
  ***************************************************************/
 
 /**
- *
- *
- * @package evchat
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * EventController
  */
 class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
@@ -40,23 +37,52 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 * @var \Evorion\Evchat\Domain\Repository\EventRepository
 	 * @inject
 	 */
-	protected $eventRepository;
+	protected $eventRepository = NULL;
+
+	/**
+	 * DBTracker Service keeps track of new messages accross processes
+	 *
+	 * @var \Evorion\Evchat\Domain\Service\DBTrackerService
+	 * @inject
+	 */
+	protected $dbTrackerService = NULL;
 
 	/**
 	 * action list
 	 *
-	 * @return void
+	 * @return 	void
 	 */
 	public function listAction() {
-		$events = $this->eventRepository->findAll();
-		$this->view->assign('events', $events);
+		// Long poll for new messages
+		$start = time();
+		$UITracker = $this->request->getArgument('tracker');
+		if (!count($UITracker)) {
+			return json_encode(FALSE);
+		}
+		while (time() - $start < 10 && !($trackerUpdate = $this->dbTrackerService->haveNew($UITracker))) {
+			usleep(50000);
+		}
+		// If no new data just return an empty response
+		if (!$trackerUpdate) {
+			return json_encode(FALSE);
+		}
+		// We have new data
+		$events = $this->eventRepository->findByTracker($trackerUpdate);
+		$json = array();
+		foreach ($events as $event) {
+			if (!is_array($json[$event->getObject()])) {
+				$json[$event->getObject()] = array();
+			}
+			$json[$event->getObject()][$event->getUid()] = $event->getEvent();
+		}
+		return json_encode($json);
 	}
 
 	/**
 	 * action new
 	 *
 	 * @param \Evorion\Evchat\Domain\Model\Event $newEvent
-	 * @dontvalidate $newEvent
+	 * @ignorevalidation $newEvent
 	 * @return void
 	 */
 	public function newAction(\Evorion\Evchat\Domain\Model\Event $newEvent = NULL) {
@@ -70,8 +96,8 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 * @return void
 	 */
 	public function createAction(\Evorion\Evchat\Domain\Model\Event $newEvent) {
+		$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See <a href="http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain" target="_blank">Wiki</a>', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		$this->eventRepository->add($newEvent);
-		$this->flashMessageContainer->add('Your new Event was created.');
 		$this->redirect('list');
 	}
 
@@ -82,10 +108,10 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 * @return void
 	 */
 	public function deleteAction(\Evorion\Evchat\Domain\Model\Event $event) {
+		$this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See <a href="http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain" target="_blank">Wiki</a>', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		$this->eventRepository->remove($event);
-		$this->flashMessageContainer->add('Your Event was removed.');
 		$this->redirect('list');
 	}
 
 }
-?>
+
